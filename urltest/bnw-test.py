@@ -23,14 +23,14 @@ def get_ba(furi,envs):
 def frontend_check(env):
     socket.setdefaulttimeout(10)
     if env == 'prod':
-        response = urllib2.urlopen("http://www.sonymobile.com/global-en/", timeout = 10)
+        response = urllib2.urlopen("http://www.testscript.com", timeout = 10)
     else:
-        furl = "http://www-" + env + ".sonymobile.com"
+        furl = "http://www-" + env + ".testscript.com"
         urllib2.install_opener(get_ba(furl,env))
         response = urllib2.urlopen(furl + '/global-en/' , timeout=10)
-    m = re.findall('tulip-demo.se-mc.com', response.read())
+    m = re.findall('insert you want to lookup', response.read())
     if len(m) > 0 and env != "demo":
-        print "There are ", len(m), " tulip-demo found on the page.Please check!!!!!!"
+        print "There are ", len(m), "  found on the page.Please check!!!!!!"
     elif len(m) > 0 and env == "demo":
         print "You are in demo env now!"
     else:
@@ -39,5 +39,4 @@ def frontend_check(env):
     print "--------------------------------------"
     print "HTTP: " , response.getcode()
     print response.info()
-frontend_check('demo')
 
