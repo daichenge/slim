@@ -1,0 +1,5 @@
+#!/bin/sh
+fab -f autoupload.py -l
+fab -f autoupload.py get_role
+#add pubkey into instances
+fab -f autoupload.py addkeys:devkeys,"/home/ubuntu"  -R demo-testxx
