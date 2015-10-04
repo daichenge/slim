@@ -1,0 +1,24 @@
+COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF    NODE NAME
+mysql.sh 2053 slim  cwd    DIR    8,1     4096 1703942 /home/slim
+mysql.sh 2053 slim  rtd    DIR    8,1     4096       2 /
+mysql.sh 2053 slim  txt    REG    8,1   109768 1441800 /bin/dash
+mysql.sh 2053 slim  mem    REG    8,1  1807032  134998 /lib/x86_64-linux-gnu/libc-2.15.so
+mysql.sh 2053 slim  mem    REG    8,1   149280  134991 /lib/x86_64-linux-gnu/ld-2.15.so
+mysql.sh 2053 slim    0u   CHR  136,1      0t0       4 /dev/pts/1
+mysql.sh 2053 slim    1u   CHR  136,1      0t0       4 /dev/pts/1
+mysql.sh 2053 slim    2u   CHR  136,1      0t0       4 /dev/pts/1
+mysql.sh 2053 slim   10r   REG    8,1       60 1704015 /home/slim/mysql.sh
+slim      2053  0.0  0.0   4400   676 pts/1    S    13:05   0:00 /bin/sh ./mysql.sh
+--------------------------------------------------------------------------------
+COMMAND    PID USER   FD   TYPE DEVICE SIZE/OFF    NODE NAME
+mongodb.s 2056 slim  cwd    DIR    8,1     4096 1703942 /home/slim
+mongodb.s 2056 slim  rtd    DIR    8,1     4096       2 /
+mongodb.s 2056 slim  txt    REG    8,1   109768 1441800 /bin/dash
+mongodb.s 2056 slim  mem    REG    8,1  1807032  134998 /lib/x86_64-linux-gnu/libc-2.15.so
+mongodb.s 2056 slim  mem    REG    8,1   149280  134991 /lib/x86_64-linux-gnu/ld-2.15.so
+mongodb.s 2056 slim    0u   CHR  136,1      0t0       4 /dev/pts/1
+mongodb.s 2056 slim    1u   CHR  136,1      0t0       4 /dev/pts/1
+mongodb.s 2056 slim    2u   CHR  136,1      0t0       4 /dev/pts/1
+mongodb.s 2056 slim   10r   REG    8,1       60 1704016 /home/slim/mongodb.sh
+slim      2056  0.0  0.0   4400   676 pts/1    S    13:05   0:00 /bin/sh ./mongodb.sh
+--------------------------------------------------------------------------------

@@ -1,0 +1,25 @@
+require 'iniparse'
+class Conf
+  attr_accessor :name, :type, :path
+  def initialize(name, type, path=File.dirname(__FILE__))
+    @name = name
+    @type = type
+    @path = path
+  end
+end
+
+class ReadConf < Conf
+  def get_conf(func)
+    conf_hash = Hash.new
+    iniparse = IniParse.open("#{path}/conf/#{func}.conf")
+    iniparse[type.upcase].each do |item|
+      conf_hash[item.key] = item.value
+    end
+    if func == "log" 
+      iniparse["system"].each do |item|
+        conf_hash[item.key] = item.value
+      end
+    end
+    return conf_hash
+  end
+end
