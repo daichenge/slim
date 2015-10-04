@@ -39,9 +39,6 @@ class CollectLogs < ReadConf
           when "applog"  then cmd_list = ["tail -100 #{value}"]
 	  else cmd_list = []
 	end
-        #cmd_list = ["lsof -c #{key}","ps aux|grep #{key}|grep -v grep"] if func == "process"
-        #cmd_list = ["netstat -an | grep #{value}"] if func == "port"
-        #cmd_list = ["tail -100 #{value}"] if func == "applog"
         cmd_list.each do |cmd|
           sysFile.syswrite(`#{cmd}`)
         end
