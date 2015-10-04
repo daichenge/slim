@@ -12,7 +12,6 @@ class ReadConf < Conf
   def get_conf(func)
     conf_hash = Hash.new
     iniparse = IniParse.open("#{path}/../conf/#{func}.conf")
-    type = "need" if func == "load"
     iniparse[type.upcase].each do |item|
       conf_hash[item.key] = item.value
     end
