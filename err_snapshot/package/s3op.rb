@@ -38,7 +38,7 @@ class S3Bucket < S3Basic
   end
 end
 
-class S3List < S3Basic
+class S3List < S3Bucket
   def list_s3()
     s3client.list_objects(bucket: buckname).each do |response|
       puts response.contents.map(&:key)
