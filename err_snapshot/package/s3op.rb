@@ -30,6 +30,12 @@ class S3Bucket < S3Basic
     namelist = list_bucket()
     puts "there is no such bucket, please check it again!" if namelist.include?(buckname) == false 
   end
+  def add_bucket()
+    s3client.create_bucket({bucket: buckname})
+  end
+  def del_bucket()
+    s3client.delete_bucket({bucket: buckname})
+  end
 end
 
 class S3List < S3Basic
