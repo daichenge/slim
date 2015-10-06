@@ -1,9 +1,34 @@
 require 'aws-sdk'
 class S3Basic
+  attr_accessor :s3client
+  def initialize(s3client)
+    @s3client = s3client
+  end
+end
+
+class S3Bucket < S3Basic
   attr_accessor :s3client, :buckname
   def initialize(s3client, buckname)
-    @s3client = s3client
     @buckname = buckname
+    super(s3client)
+  end
+  def list_bucket()
+    resp = s3client.list_buckets()
+    namelist = Array.new
+    resp.buckets.each do |res|
+      namelist.push(res.name)
+    end
+    return namelist
+=begin
+    resp.buckets[0].name #=> String
+    resp.buckets[0].creation_date #=> Time
+    resp.owner.display_name #=> String
+    resp.owner.id #=> String
+=end
+  end
+  def check_bucket()
+    namelist = list_bucket()
+    puts "there is no such bucket, please check it again!" if namelist.include?(buckname) == false 
   end
 end
 
