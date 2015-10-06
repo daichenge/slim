@@ -1,3 +1,9 @@
 1. you need to install iniparse on ruby
 gem install iniparse
 2. the applicaion is using for collect informations when application crash or down
+3. you would also need to install aws sdk for ruby
+gem install 'aws-sdk'
+4. you need to configure your local aws env in ~/.aws/credentials
+[default]
+aws_access_key_id = ACCESS_KEY
+aws_secret_access_key = SECRET_KEY
