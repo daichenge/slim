@@ -1,0 +1,30 @@
+<source> 
+	type tail 
+	format apache 
+	path /var/log/httpd/access_log 
+	tag httpd 
+</source>
+
+<match *.**>
+  type copy
+  <store>
+    type elasticsearch
+    host localhost
+    port 9200
+    include_tag_key true
+    tag_key httpd
+    logstash_format true
+    flush_interval 10s
+  </store>
+  <store>
+    type s3
+    aws_key_id AKIAIJBHWGDLZ4MUNDBA
+    aws_sec_key MxhYB+lgTjYeE836hEsN74Jde8e0HTHuZyYr8k8g
+    s3_bucket slim-chef
+    s3_region ap-southeast-1
+    path logs/
+    buffer_path /var/log/td-agent/buffer/s3
+    time_slice_format %Y-%m-%d/%H
+    time_slice_wait 10m
+  </store>
+</match>

@@ -1,0 +1,17 @@
+#you need to add "*.* @127.0.0.1:42185" to the end of /etc/rsyslog.conf.
+#also need to restart syslog service. /etc/init.d/rsyslog restart
+<source>
+  type syslog
+  port 42185
+  tag syslog
+</source>
+
+<source>
+  type forward
+</source>
+
+<match syslog.**>
+  type elasticsearch
+  logstash_format true
+  flush_interval 10s # for testing
+</match>
