@@ -1,0 +1,9 @@
+#cloud-config
+# Cloud config for application servers 
+
+runcmd:
+  # Install docker
+  - sudo apt-get update
+  - sudo apt-get install docker.io -y
+  # Run nginx
+  - docker run -d -p 80:80 nginx
