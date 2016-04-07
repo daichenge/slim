@@ -1,0 +1,52 @@
+# Rolling ASG Updates
+- ec2_lc:
+    name: "{{ lc_name }}"
+    image_id: "{{ ami_name }}"
+    key_name: slim-lab-key
+    region: "{{ region }}"
+    security_groups: sg-3c120158
+    instance_type: t2.micro
+    assign_public_ip: yes
+# Basic configuration
+- ec2_asg:
+    name: "{{ asg_name }}"
+    load_balancers: [ 'slim-test' ]
+    availability_zones: [ 'eu-west-1a']
+    launch_config_name: "{{ lc_name }}"
+    min_size: 2
+    max_size: 2
+    desired_capacity: 2
+    vpc_zone_identifier: [ 'subnet-072ed663' ]
+    tags:
+      - environment: test
+    region: "{{ region }}"
+# wait for 60 seconds
+- command: sleep 60
+# scale up
+- ec2_asg:
+    name: "{{ asg_name }}"
+    load_balancers: [ 'slim-test' ]
+    availability_zones: [ 'eu-west-1a']
+    launch_config_name: "{{ lc_name }}"
+    min_size: 4
+    max_size: 4
+    desired_capacity: 4
+    vpc_zone_identifier: [ 'subnet-072ed663' ]
+    tags:
+      - environment: test
+    region: "{{ region }}"
+# wait for 60 seconds
+- command: sleep 60
+# scale down
+- ec2_asg:
+    name: "{{ asg_name }}"
+    load_balancers: [ 'slim-test' ]
+    availability_zones: [ 'eu-west-1a']
+    launch_config_name: "{{ lc_name }}"
+    min_size: 2
+    max_size: 2
+    desired_capacity: 2
+    vpc_zone_identifier: [ 'subnet-072ed663' ]
+    tags:
+      - environment: test
+    region: "{{ region }}"

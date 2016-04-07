@@ -1,0 +1,6 @@
+- hosts: web
+  remote_user: ubuntu
+  vars_files:
+  - external_vars.yml
+  tasks:
+  - include: asg.yml

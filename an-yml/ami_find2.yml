@@ -1,0 +1,13 @@
+- ec2_ami_find:
+    owner: self
+    ami_tags:
+      project: website
+    no_result_action: fail
+    region: eu-west-1
+  register: ami_find
+- ec2:
+    image: "{{ ami_find.results[0].ami_id }}"
+    instance_type: m3.medium
+    key_name: slim-lab-key
+    wait: yes
+    region: eu-west-1

@@ -1,0 +1,12 @@
+---
+- hosts: web
+  remote_user: ubuntu
+  tasks:
+  - name: test ec2_ami_find
+    ec2_ami_find: 
+    - name: ubuntu-trusty-14.04-amd64-server-*
+    - owner: 099720109477
+    - sort:name
+    - sort_order: descending 
+    - sort_end: 1 
+    - region: eu-west-1

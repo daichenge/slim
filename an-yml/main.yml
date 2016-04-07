@@ -1,0 +1,4 @@
+- hosts: web
+  remote_user: ubuntu
+  tasks:
+  - include: wait.yml

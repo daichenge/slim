@@ -1,0 +1,8 @@
+- ec2_ami_find:
+    name: chuck-ami-2016-01-20
+    owner: self
+    sort: name
+    sort_order: descending
+    sort_end: 1
+    region: eu-west-1
+  register: ami_find

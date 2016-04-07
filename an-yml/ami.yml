@@ -1,0 +1,6 @@
+---
+- hosts: web
+  remote_user: ubuntu
+  tasks:
+  - name: test ec2_ami_find
+    ec2_ami_find: owner=self, region=eu-west-1, no_result_action=fail
