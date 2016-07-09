@@ -1,0 +1,6 @@
+nagios-list:
+  file.managed:
+    - name: /etc/nagios3/servers/{{ grains['id'] }}.cfg
+    - source: salt://package/files/nagios/servers/template.cfg
+    - mkdirs: True
+    - template: jinja
