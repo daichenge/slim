@@ -1,0 +1,6 @@
+---
+- hosts: tag_nagios_client
+  sudo: yes
+  tasks:
+  - name: test
+    command: echo 'hello'

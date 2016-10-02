@@ -1,0 +1,25 @@
+- name: create launch config
+  ec2_lc:
+    name: "{{ asg_lc_name }}"
+    image_id: "{{ ami_id }}"
+    key_name: "{{ key }}"
+    region: "{{ region }}"
+    security_groups: sg-a1a7a4c5
+    instance_type: "{{ instance_type}}"
+    assign_public_ip: yes
+
+- ec2_asg:
+    name: "{{ asg_name }}"
+    load_balancers: "{{ elb_name }}"
+    launch_config_name: "{{ asg_lc_name }}"
+    health_check_period: 60
+    health_check_type: EC2
+    replace_all_instances: yes
+    vpc_zone_identifier: "{{ subnet_id }}"
+    min_size: 1
+    max_size: 4
+    desired_capacity: 1
+    region: "{{ region }}"
+    tags:
+     - nagios: client
+       Name: frontend

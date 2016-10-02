@@ -1,0 +1,14 @@
+---
+- hosts: tag_nagios_client
+  sudo: yes
+  tasks:
+  - name: add dns on hosts
+    lineinfile: dest=/etc/hosts line="10.1.1.101 slimops.com"
+  - name: install packages for nagios3
+    apt: pkg={{ item }} state=latest update_cache=yes
+    with_items:
+    - nagios-nrpe-server
+  - name: copy nrpe.cfg
+    copy: src=/opt/ansible-yaml/src/nrpe.cfg dest=/etc/nagios/nrpe.cfg
+  - name: start nrpe-server
+    service: name=nagios-nrpe-server state=started enabled=yes

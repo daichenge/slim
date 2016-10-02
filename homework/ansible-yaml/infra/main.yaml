@@ -1,0 +1,10 @@
+---
+- hosts: tag_ansible_server
+  remote_user: ubuntu
+  vars_files:
+  - vars/aws.yaml
+  - vars/sg.yaml
+  tasks:
+  - include: ec2-sg.yaml
+  - include: elb.yaml
+  - include: asg.yaml

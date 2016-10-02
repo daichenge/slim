@@ -1,0 +1,29 @@
+- local_action:
+    module: ec2_elb_lb
+    aws_access_key: "{{ access }}"
+    aws_secret_key: "{{ secret }}"
+    region: "{{ region }}"
+    name: "{{ elb_name}}"
+    state: present
+    scheme: internal
+    subnets:
+      - "{{ subnet_id }}"
+#    instance_ids:
+#      - i-xxxxxx
+#      - i-yyyyyy
+    listeners:
+      - protocol: http
+        load_balancer_port: 80
+        instance_port: 80
+    health_check:
+        ping_protocol: http
+        ping_port: 80
+        ping_path: "/index.html"
+        response_timeout: 5
+        interval: 30
+        unhealthy_threshold: 2
+        healthy_threshold: 10
+#    access_logs:
+#        interval: 5 
+#        s3_location: "{{ s34elb }}" 
+#        s3_prefix: "logs"

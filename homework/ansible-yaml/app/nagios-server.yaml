@@ -1,0 +1,46 @@
+---
+- hosts: tag_nagios_server
+  sudo: yes
+  tasks:
+  - name: add dns on hosts
+    lineinfile: dest=/etc/hosts line="10.1.1.101 slimops.com"
+  - name: install packages for nagios3
+    apt: pkg={{ item }} state=latest update_cache=yes
+    with_items:
+    - nagios3
+    - apache2
+    - ndoutils-common
+    - pnp4nagios
+  - name: config nagios3
+    copy: src=/opt/ansible-yaml/src/nagios/{{ item }} dest=/etc/nagios3/{{ item }}
+    with_items:
+    - nagios.cfg
+    - resource.cfg
+  - name: config nagios3 conf.d
+    copy: src=/opt/ansible-yaml/src/nagios/conf.d/{{ item }} dest=/etc/nagios3/conf.d/{{ item }}
+    with_items:
+    - contacts_nagios2.cfg
+    - generic-host_nagios2.cfg
+  - name: servers directory
+    shell: ls /etc/nagios3/servers
+    register: result
+    ignore_errors: True
+  - name: mkdir servers
+    shell: mkdir /etc/nagios3/servers
+    when: result.rc != 0
+  - name: config npcd
+    copy: src=/opt/ansible-yaml/src/npcd dest=/etc/default/npcd
+  - name: config ndoutils
+    copy: src=/opt/ansible-yaml/src/ndoutils dest=/etc/default/ndoutils
+  - name: config apache2
+    copy: src=/opt/ansible-yaml/src/htpasswd.users dest=/etc/nagios3/htpasswd.users
+  - name: config apache-pnp4-config
+    copy: src=/opt/ansible-yaml/src/pnp4nagios.conf dest=/etc/apache2/conf-enabled/pnp4nagios.conf
+  - name: start npcd
+    service: name=npcd state=restarted enabled=yes
+  - name: start apache2
+    service: name=apache2 state=restarted enabled=yes
+  - name: start ndoutils
+    service: name=ndoutils state=restarted enabled=yes
+  - name: start nagios3
+    service: name=nagios3 state=restarted enabled=yes

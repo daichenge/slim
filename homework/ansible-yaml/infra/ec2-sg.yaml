@@ -1,0 +1,25 @@
+- name: setup webserver SG
+  ec2_group:
+    name: "{{ sg }}"
+    description: an EC2 group for webserver
+    vpc_id: "{{ vpcid }}"
+    region: "{{ region }}"
+    aws_secret_key: "{{ secret }}"
+    aws_access_key: "{{ access }}"
+    rules:
+      - proto: tcp
+        from_port: 443
+        to_port: 443
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 80
+        to_port: 80
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: ['10.1.0.0/16','111.207.139.131/32']
+      - proto: tcp
+        from_port: 8080
+        to_port: 8080
+        cidr_ip: 0.0.0.0/0
