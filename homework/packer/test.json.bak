@@ -1,0 +1,29 @@
+{  
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "{{user `region`}}",
+      "source_ami": "{{user `source_ami`}}",
+      "instance_type": "{{user `instance_type`}}",
+      "ssh_username": "{{user `ssh_username`}}",
+      "ami_name": "slim-webserver-{{timestamp}}"
+    }
+  ],
+
+  "provisioners": [
+    {
+      "inline": ["cat /etc/hosts"],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": "",
+    "region": "",
+    "instance_type": "",
+    "source_ami": "",
+    "ssh_username": ""
+  }
+}

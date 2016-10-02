@@ -1,0 +1,20 @@
+#!/bin/bash
+userdata=`curl http://169.254.169.254/latest/user-data`
+ENVIRONMENT=`echo $userdata| awk '{print $1}' | awk -F= '{print $2}'`
+SERVER_GROUP=`echo $userdata| awk '{print $2}' | awk -F= '{print $2}'`
+prog=$(basename $0)
+logger="logger -t $prog"
+if [ x$svrgroup == ""]; then
+	echo "No servergroup defined in userdata" > /tmp/userdata.out
+fi
+
+if [ x$ENVIRONMENT != x ] ; then
+    $logger "Executing scripts for server of type $SERVER_GROUP and environment $ENVIRONMENT"
+    S3BUCKET=slim-app-$ENVIRONMENT
+    sudo -u ubuntu mkdir -p /home/ubuntu/scripts
+	s3cmd -c /home/ubuntu/.s3cfg-$ENVIRONMENT sync --delete-removed s3://$S3BUCKET/scripts/ /home/ubuntu/scripts/
+    chmod +x /home/ubuntu/scripts/instance-boot.sh
+    /home/ubuntu/scripts/instance-boot.sh $SERVER_GROUP $ENVIRONMENT
+else
+    $logger "No scripts executed for server of type $SERVER_GROUP and environment $ENVIRONMENT"
+fi
