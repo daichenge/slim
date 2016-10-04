@@ -1,6 +1,6 @@
 ---
-access: AKIAJNVLQD3NBQ7MPFTA
-secret: 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
+access: 
+secret: 
 region: ap-southeast-1
 vpcid: vpc-6d9e5f09
 subnet_id: subnet-c88501ac
